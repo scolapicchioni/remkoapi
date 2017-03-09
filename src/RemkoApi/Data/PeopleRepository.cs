@@ -1,0 +1,23 @@
+﻿using RemkoApi.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RemkoApi.Data
+{
+    public class PeopleRepository : IPeopleRepository {
+        private static List<Person> people = new List<Person>() {
+            new Person(){Id=0, Name="Maria", Surname="Super" },
+            new Person(){Id=1, Name="Luigia", Surname="Super" }
+        };
+
+        public List<Person> GetPeople() {
+            return people;
+        }
+
+        public Person GetPersonById(int id) {
+            return people.FirstOrDefault(p=>p.Id==id);
+        }
+    }
+}

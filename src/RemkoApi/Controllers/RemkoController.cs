@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using RemkoApi.Models;
+using RemkoApi.Data;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,21 +14,24 @@ namespace RemkoApi.Controllers
     [Route("api/[controller]")]
     public class RemkoController : Controller
     {
+        private IPeopleRepository _rep;
+        public RemkoController(IPeopleRepository rep) {
+            _rep = rep;
+        }
         // GET: api/values
         [HttpGet]
         public IEnumerable<Person> Get()
         {
-            return new Person[] {
-                new Person(){Id=0, Name="Maria", Surname="Super" },
-                new Person(){Id=1, Name="Luigia", Surname="Super" }
-            };
+            return _rep.GetPeople();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Person Get(int id)
+        public IActionResult Get(int id)
         {
-            return new Person() { Id = 0, Name = "Maria", Surname = "Super" };
+            Person p = _rep.GetPersonById(id);
+
+            return (p == null) ? NotFound() as IActionResult : Ok(p);
         }
 
         /// <summary>
