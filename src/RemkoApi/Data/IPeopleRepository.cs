@@ -5,5 +5,6 @@ namespace RemkoApi.Data {
     public interface IPeopleRepository {
         List<Person> GetPeople();
         Person GetPersonById(int id);
+        Person AddPerson(Person item);
     }
 }

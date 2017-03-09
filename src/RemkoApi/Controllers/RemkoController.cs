@@ -34,13 +34,9 @@ namespace RemkoApi.Controllers
             return (p == null) ? NotFound() as IActionResult : Ok(p);
         }
 
-        /// <summary>
-        /// I WAS TRYING THIS BUT IT DOES NOT WORK. YOU DON'T NEED THIS GUY
-        /// </summary>
-        /// <param name="value"></param>
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Person value)
+        public IActionResult Post([FromBody]Person item)
         {
             //var bodyStream = this.Request.Body;
 
@@ -48,9 +44,14 @@ namespace RemkoApi.Controllers
 
             //Console.WriteLine(value.ToString());
 
-            if (ModelState.IsValid) {
-                value.Id++;
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+
             }
+            
+            _rep.AddPerson(item);
+            return CreatedAtRoute(new { id = item.Id }, item);
+
         }
 
         // PUT api/values/5

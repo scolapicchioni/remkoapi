@@ -12,6 +12,12 @@ namespace RemkoApi.Data
             new Person(){Id=1, Name="Luigia", Surname="Super" }
         };
 
+        public Person AddPerson(Person item) {
+            item.Id = people.Max(p => p.Id) + 1;
+            people.Add(item);
+            return item;
+        }
+
         public List<Person> GetPeople() {
             return people;
         }
