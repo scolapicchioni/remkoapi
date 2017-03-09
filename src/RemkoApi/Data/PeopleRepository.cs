@@ -25,5 +25,13 @@ namespace RemkoApi.Data
         public Person GetPersonById(int id) {
             return people.FirstOrDefault(p=>p.Id==id);
         }
+
+        public void UpdatePerson(Person item) {
+            var old = people.FirstOrDefault(p => p.Id == item.Id);
+            if (old != null) {
+                old.Name = item.Name;
+                old.Surname = item.Surname;
+            }
+        }
     }
 }

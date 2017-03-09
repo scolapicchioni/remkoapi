@@ -56,8 +56,17 @@ namespace RemkoApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Person item)
         {
+            if (id != item.Id) {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            _rep.UpdatePerson(item);
+            return NoContent();
         }
 
         // DELETE api/values/5
