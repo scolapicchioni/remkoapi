@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using RemkoApi.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,16 +15,19 @@ namespace RemkoApi.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Person> Get()
         {
-            return new string[] { "version 01", "starter" };
+            return new Person[] {
+                new Person(){Id=0, Name="Maria", Surname="Super" },
+                new Person(){Id=1, Name="Luigia", Surname="Super" }
+            };
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Person Get(int id)
         {
-            return "value";
+            return new Person() { Id = 0, Name = "Maria", Surname = "Super" };
         }
 
         /// <summary>
@@ -32,13 +36,17 @@ namespace RemkoApi.Controllers
         /// <param name="value"></param>
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]object value)
+        public void Post([FromBody]Person value)
         {
-            var bodyStream = this.Request.Body;
-            
-            var requestBody = new StreamReader(bodyStream).ReadToEnd();
+            //var bodyStream = this.Request.Body;
 
-            Console.WriteLine(value.ToString());
+            //var requestBody = new StreamReader(bodyStream).ReadToEnd();
+
+            //Console.WriteLine(value.ToString());
+
+            if (ModelState.IsValid) {
+                value.Id++;
+            }
         }
 
         // PUT api/values/5
