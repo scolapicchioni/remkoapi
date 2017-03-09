@@ -71,8 +71,13 @@ namespace RemkoApi.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var person = _rep.DeletePerson(id);
+            if (person == null) {
+                return NotFound();
+            }
+            return Ok(person);
         }
     }
 }

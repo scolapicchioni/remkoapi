@@ -18,6 +18,14 @@ namespace RemkoApi.Data
             return item;
         }
 
+        public Person DeletePerson(int id) {
+            var found = people.FirstOrDefault(p => p.Id == id);
+            if (found != null) {
+                people.Remove(found);
+            }
+            return found;
+        }
+
         public List<Person> GetPeople() {
             return people;
         }

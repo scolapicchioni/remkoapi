@@ -6,7 +6,7 @@ namespace RemkoApi.Data {
         List<Person> GetPeople();
         Person GetPersonById(int id);
         Person AddPerson(Person item);
-
         void UpdatePerson(Person item);
+        Person DeletePerson(int id);
     }
 }
